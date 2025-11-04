@@ -1,14 +1,24 @@
 import React from 'react';
 import ProductCard from './ProductCard';
 
-const ProductList = ({ products }) => {
-  // TODO: Check if the product list is empty and display a message if needed
+//component that receives the list of products from app
+function ProductList({ products, onRemoveProduct }) {
+  //check the product availability
+  const hasInStock = products.some((product) => product.inStock);
 
   return (
-    <div>
-      {/* TODO: Iterate over the products array and render a ProductCard for each product */}
-    </div>
+    //using the fragments to group elements
+    <>
+    {!hasInStock && <p>No products are avaiable in stock!</p>}
+    {products.map((product) => ( 
+      <ProductCard
+       key={product.id}
+        product={product} 
+        onRemove={onRemoveProduct}
+        />
+    )) }
+    </>
   );
-};
+}
 
 export default ProductList;
